@@ -151,9 +151,9 @@ app.get('/api/product/list', async (req, res) => {
     // Format the products by ensuring the image URL is correct
     const formattedProducts = products.map((product) => ({
       ...product.toObject(),
-      image: product.image.startsWith('http') 
+      image: product.image.startsWith('https') 
         ? product.image  // If the image URL is already full, use it as is
-        : `http://192.168.1.6:5000${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `${process.env.DEV_URL}${product.image}`,  // If the image URL is relative, prepend the server's base URL
     }));
 
     // Send the formatted products back as a response
@@ -180,9 +180,9 @@ app.get('/api/product/:id', async (req, res) => {
     // Format the product by ensuring the image URL is correct
     const formattedProduct = {
       ...product.toObject(),
-      image: product.image.startsWith('http')
+      image: product.image.startsWith('https')
         ? product.image  // If the image URL is already full, use it as is
-        : `http://192.168.1.6:5000${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `${process.env.DEV_URL}${product.image}`,  // If the image URL is relative, prepend the server's base URL
     };
 
     // Send the formatted product back as a response

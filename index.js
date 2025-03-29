@@ -153,7 +153,7 @@ app.get('/api/product/list', async (req, res) => {
       ...product.toObject(),
       image: product.image.startsWith('http') 
         ? product.image  // If the image URL is already full, use it as is
-        : `http://192.168.1.6:3034${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `http://192.168.1.6:5000${product.image}`,  // If the image URL is relative, prepend the server's base URL
     }));
 
     // Send the formatted products back as a response
@@ -182,7 +182,7 @@ app.get('/api/product/:id', async (req, res) => {
       ...product.toObject(),
       image: product.image.startsWith('http')
         ? product.image  // If the image URL is already full, use it as is
-        : `http://192.168.1.6:3034${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `http://192.168.1.6:5000${product.image}`,  // If the image URL is relative, prepend the server's base URL
     };
 
     // Send the formatted product back as a response
@@ -193,9 +193,7 @@ app.get('/api/product/:id', async (req, res) => {
   }
 });
 
-
-
 // Express серверийг эхлүүлэх
-app.listen(3034, () => {
-  console.log('Express started on http://localhost:3034');
+app.listen(5000, () => {
+  console.log('Express started on http://localhost:5000');
 });

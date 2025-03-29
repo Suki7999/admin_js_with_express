@@ -153,7 +153,7 @@ app.get('/api/product/list', async (req, res) => {
       ...product.toObject(),
       image: product.image.startsWith('http') 
         ? product.image  // If the image URL is already full, use it as is
-        : `http://localhost:3034${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `http://192.168.1.6:3034${product.image}`,  // If the image URL is relative, prepend the server's base URL
     }));
 
     // Send the formatted products back as a response
@@ -161,6 +161,35 @@ app.get('/api/product/list', async (req, res) => {
   } catch (error) {
     console.error('Error retrieving products:', error);
     res.status(500).send('Error retrieving products');
+  }
+});
+
+// Define the route for getting product details by ID
+app.get('/api/product/:id', async (req, res) => {
+  try {
+    const { id } = req.params; // Get the product ID from the request parameters
+
+    // Fetch the product by ID from MongoDB
+    const product = await Product.findById(id);
+
+    // If the product is not found, return a 404 error
+    if (!product) {
+      return res.status(404).send('Product not found');
+    }
+
+    // Format the product by ensuring the image URL is correct
+    const formattedProduct = {
+      ...product.toObject(),
+      image: product.image.startsWith('http')
+        ? product.image  // If the image URL is already full, use it as is
+        : `http://192.168.1.6:3034${product.image}`,  // If the image URL is relative, prepend the server's base URL
+    };
+
+    // Send the formatted product back as a response
+    res.status(200).json(formattedProduct);
+  } catch (error) {
+    console.error('Error retrieving product:', error);
+    res.status(500).send('Error retrieving product');
   }
 });
 

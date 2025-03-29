@@ -153,7 +153,7 @@ app.get('/api/product/list', async (req, res) => {
       ...product.toObject(),
       image: product.image.startsWith('https') 
         ? product.image  // If the image URL is already full, use it as is
-        : `${process.env.DEV_URL}${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `https://express-with-admin-37fcf5816bab.herokuapp.com${product.image}`,  // If the image URL is relative, prepend the server's base URL
     }));
 
     // Send the formatted products back as a response
@@ -182,7 +182,7 @@ app.get('/api/product/:id', async (req, res) => {
       ...product.toObject(),
       image: product.image.startsWith('https')
         ? product.image  // If the image URL is already full, use it as is
-        : `${process.env.DEV_URL}${product.image}`,  // If the image URL is relative, prepend the server's base URL
+        : `https://express-with-admin-37fcf5816bab.herokuapp.com${product.image}`,  // If the image URL is relative, prepend the server's base URL
     };
 
     // Send the formatted product back as a response
